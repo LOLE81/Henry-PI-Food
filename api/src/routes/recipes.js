@@ -57,8 +57,8 @@ router.get('/', async (req, res, next) => {
         let allRecipes = await getAllRecipes()
         
         if (name) {
-            let recipeByName = await allRecipes.filter(e => e.name.toLowerCase().includes(name.toLowerCase()));
-            
+            let recipeByName = await allRecipes.filter(e => e.name.toLowerCase().includes(name.toString().toLowerCase()));
+            console.log(recipeByName)
             if (recipeByName.length) {
                 let recipes = recipeByName.map(e => {
                     return {
@@ -67,14 +67,21 @@ router.get('/', async (req, res, next) => {
                         dietTypes: e.dietTypes
                     }
                 })
-                return res.status(200).send(recipes);
-            } else { 
-                return res.status(404).send('Sorry, recipe not found')
-            }
-        } res.status(400).send('invalid input');
-        
-    } catch(error) {
-        next(error)
+                return res.status(200).send(recipes); 
+            }  
+        return res.status(404).send('Sorry, recipe not found')
+        } else {
+            let recipes = allRecipes.map(e => {
+                return {
+                    image: e.image,
+                    name: e.name,
+                    dietTypes: e.dietTypes
+                }
+            })
+            return res.status(200).send(recipes);
+        }
+    } catch {
+       return res.status(400).send('invalid input');
     }
 });
 
