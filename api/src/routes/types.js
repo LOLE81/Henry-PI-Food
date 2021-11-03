@@ -13,8 +13,8 @@ router.get('/', async (req, res, next) => {
                 where: { name: e}
             })
         });
-        const dietTipes = await Diet.findAll();
-        res.send(dietTipes)
+        const dietTypes = await Diet.findAll();
+        res.send(dietTypes)
     } catch (error) {
         next(error)
     }

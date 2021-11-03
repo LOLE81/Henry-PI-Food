@@ -1,17 +1,20 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRecipes } from '../actions';
+import { getRecipes, dietTypeFilter, aplhabeticalSort, scoreSort } from '../actions';
 import Recipe from './Recipe';
 import { Link } from 'react-router-dom'
 import Paged from './Paged';
+import SearchBar from './SearchBar';
 
 
 
-export default function Home (){
+export default function Home() {
     
     const dispatch = useDispatch(); // declaro una const con la función que retorna el dispatch con sus acciones
     const allRecipes = useSelector((state) => state.recipes); // con el hook me traigo el estado de recipes
+    
+    const [order, setOrder] = useState('') // creo un estado local para indicar el orden
     const [page, setPage] = useState(1); // creo un estado local para la página actual
     const [recipesPage, setRecipesPage] = useState(9); // creo otro estado local con la cantidad de recetas por página
     const quantityRecipesPage = page * recipesPage; // 9 ---> va a ser la cantidad que muestre por página
@@ -31,6 +34,26 @@ export default function Home (){
     function handleClick(e) {
         e.preventDefault();
         dispatch(getRecipes());
+        setPage(1);
+    }
+
+    function handleDietTypeFilter(e) {
+        e.preventDefault();
+        dispatch(dietTypeFilter(e.target.value))
+    }
+
+    function handleAlphabeticalSort(e) {
+        e.preventDefault();
+        dispatch(aplhabeticalSort(e.target.value))
+        setPage(1);
+        setOrder(`Order ${e.target.value}`);
+    }
+
+    function handleScoreSort(e) {
+        e.preventDefault();
+        dispatch(scoreSort(e.target.value));
+        setPage(1);
+        setOrder(`Order ${e.target.value}`);
     }
 
     return(
@@ -39,15 +62,18 @@ export default function Home (){
             <h2>Food for foodies</h2>
             <button onClick={handleClick}>Refresh recipes</button>
             <div>
-                <select name="alphabetical">
+                <select name="alphabetical" onChange={e => handleAlphabeticalSort(e)}>
+                    <option disabled selected>Alphabetical</option>
                     <option value="asc">Ascendant</option>
                     <option value="desc">Descendant</option>
                 </select>
-                <select name="numerical">
+                <select name="numerical" onChange={e => handleScoreSort(e)}>
+                    <option disabled selected>Score</option>
                     <option value="asc">Ascendant</option>
                     <option value="desc">Descendant</option>
                 </select>
-                <select name="diets">
+                <select name="diets" onChange={e => handleDietTypeFilter(e)}>
+                    <option disabled selected>Diet types</option>
                     <option value="gluten free">Gluten Free</option>
                     <option value="ketogenic">Keto</option>
                     <option value="vegetarian">Vegetarian</option>
@@ -56,26 +82,34 @@ export default function Home (){
                     <option value="lacto ovo vegetarian">Lacto-Ovo-Vegetarian</option>
                     <option value="vegan">Vegan</option>
                     <option value="pescetarian">Pescetarian</option>
-                    <option value="paleo">Paleo</option>
+                    <option value="paleolithic">Paleo</option>
                     <option value="primal">Primal</option>
                     <option value="low fodmap">Low FODMAP</option>
                     <option value="whole 30">Whole30</option>
+                    <option value="dairy free">Dairy Free</option>
                 </select>
             </div>
 
             <Paged recipesPage={recipesPage} allRecipes={allRecipes.length} paged={paged}/>
 
+            <SearchBar/>
+                        
             {
                 showRecipesPage?.map(e => {
                     return (
                         <div>
-                            <Recipe image={e.image} name={e.name} dietTypes={e.dietTypes}/>
+                            <Recipe image={e.image ? e.image : 'https://images.unsplash.com/photo-1635321593217-40050ad13c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80'} name={e.name} dietTypes={e.dietTypes}/>
                         </div>
                     )
                 })
             }
 
         </div>
+
+
+
+
+
 
     )
 }

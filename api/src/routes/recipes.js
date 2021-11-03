@@ -58,13 +58,14 @@ router.get('/', async (req, res, next) => {
         
         if (name) {
             let recipeByName = await allRecipes.filter(e => e.name.toLowerCase().includes(name.toString().toLowerCase()));
-            console.log(recipeByName)
+           
             if (recipeByName.length) {
                 let recipes = recipeByName.map(e => {
                     return {
                         image: e.image,
                         name: e.name,
-                        dietTypes: e.dietTypes
+                        dietTypes: e.dietTypes,
+                        score: e.score
                     }
                 })
                 return res.status(200).send(recipes); 
@@ -75,7 +76,8 @@ router.get('/', async (req, res, next) => {
                 return {
                     image: e.image,
                     name: e.name,
-                    dietTypes: e.dietTypes
+                    dietTypes: e.dietTypes,
+                    score: e.score
                 }
             })
             return res.status(200).send(recipes);
