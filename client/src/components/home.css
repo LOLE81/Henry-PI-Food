@@ -1,0 +1,40 @@
+
+.refreshButton {
+    color: rgb(231, 218, 218);
+    background-color: #ce5249;
+    font-size: 17px;
+    text-align: center;
+    padding: 10px 25px;
+    margin: 5px;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px 1px rgb(112, 44, 44);
+    cursor: pointer;
+}
+
+.refreshButton:hover {
+    color:#ce5249;
+    background-color: rgb(231, 218, 218);
+}
+
+.addButton {
+    color: rgb(231, 218, 218);
+    background-color: #ce5249;
+    font-size: 17px;
+    text-align: center;
+    padding: 10px 25px;
+    margin: 5px;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px 1px rgb(112, 44, 44);
+    cursor: pointer;
+}
+
+.addButton:hover {
+    color:#ce5249;
+    background-color: rgb(231, 218, 218);
+}
+
+.allrecipes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}

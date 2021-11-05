@@ -54,7 +54,7 @@ const { API_KEY } = process.env;
 router.get('/', async (req, res, next) => {
     try {
         const { name } = req.query;
-        let allRecipes = await getAllRecipes()
+        let allRecipes = await getAllRecipes()    
         
         if (name) {
             let recipeByName = await allRecipes.filter(e => e.name.toLowerCase().includes(name.toString().toLowerCase()));
@@ -64,8 +64,9 @@ router.get('/', async (req, res, next) => {
                     return {
                         image: e.image,
                         name: e.name,
-                        dietTypes: e.dietTypes,
-                        score: e.score
+                        dietTypes: e.dietTypes ? e.dietTypes : e.diets.map(e => e.name),
+                        score: e.score,
+                        id: e.id
                     }
                 })
                 return res.status(200).send(recipes); 
@@ -76,8 +77,9 @@ router.get('/', async (req, res, next) => {
                 return {
                     image: e.image,
                     name: e.name,
-                    dietTypes: e.dietTypes,
-                    score: e.score
+                    dietTypes: e.dietTypes ? e.dietTypes : e.diets.map(e => e.name),
+                    score: e.score,
+                    id: e.id
                 }
             })
             return res.status(200).send(recipes);

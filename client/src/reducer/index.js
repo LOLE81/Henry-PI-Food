@@ -20,7 +20,7 @@ export default function rootReducer(state = initialState, action) {
         case DIET_TYPE_FILTER:
           const allRecipes = state.allRecipes;
           console.log(action.payload)
-          const filteredByDietType = allRecipes.filter(r => r.dietTypes?.some(d => d === action.payload))
+          const filteredByDietType = allRecipes.filter(r => r.dietTypes?.some(d => d.toLowerCase() === action.payload.toLowerCase()))
           // for (let i = 0; i < allRecipes.length; i++) {
           //   if (allRecipes[i].dietTypes?.filter(d => d === action.payload)) {
           //     filteredByDietType.push(allRecipes[i])

@@ -1,23 +1,21 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRecipeDetails } from '../actions';
-import Recipe from './Recipe';
 import { Link } from 'react-router-dom'
 
 
 export default function RecipeDetails(props) {
     const dispatch = useDispatch();
     const id = props.match.params.id;
-
+ 
     
     useEffect(() => {
         dispatch(getRecipeDetails(id))
-    }, [dispatch]);
+    }, [dispatch, id]);
 
 
     const recipeDetails = useSelector(state => state.recipeDetails);
-
 
     return (
         <div key={id}>
@@ -28,21 +26,32 @@ export default function RecipeDetails(props) {
                     <span key={e}>|{e}| </span>
                 )
             })}</h2>
-            <h2>{recipeDetails.dietTypes?.map(e => {
+            <h2>Diet Types: {recipeDetails.dietTypes ? recipeDetails.dietTypes.map(e => {
                 return(
                     <span key={e}>|{e}| </span>
                 )
-            })}</h2>
-            <p>Summary: {recipeDetails.summary}</p>
+            }) :
+            recipeDetails.diets?.map(e => {
+                return(
+                    <span key={e.name}>|{e.name}| </span>
+                )
+            })
+            }</h2>
+            <p>Summary: {recipeDetails.summary?.replace(/<[^>]*>/g, '')}</p>
             <h3>Score: {recipeDetails.score}</h3>
             <h3>Healthiness points: {recipeDetails.healthScore}</h3>
-            <ul>Steps: {Array.isArray(recipeDetails.steps) ? recipeDetails.steps.map(e => {
+            <ul style={{listStyleType: "none"}}>Steps: {Array.isArray(recipeDetails.steps) ? recipeDetails.steps.map(e => {
                 return(
                     <li key={e.number}>{e.step}</li>
                     )
             }) :
             <li>{recipeDetails.steps}</li>
             }</ul>
+            
+            <Link to="/home">
+                <button>Go back</button>
+            </Link>
+
         </div>
 
     )

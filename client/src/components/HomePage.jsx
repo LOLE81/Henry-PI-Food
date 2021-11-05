@@ -6,8 +6,9 @@ import Recipe from './Recipe';
 import { Link } from 'react-router-dom'
 import Paged from './Paged';
 import SearchBar from './SearchBar';
+import './home.css'
 
-
+let prevId = 1;
 
 export default function Home() {
     
@@ -20,7 +21,7 @@ export default function Home() {
     const quantityRecipesPage = page * recipesPage; // 9 ---> va a ser la cantidad que muestre por página
     const firstRecipePage = quantityRecipesPage - recipesPage; // 0 ---> va a ser el índice de la primer receta mostrada
     const showRecipesPage = allRecipes.slice(firstRecipePage, quantityRecipesPage); // de todos las recetas, éstas son las que voy a mostrar por página
-
+    console.log(showRecipesPage)
     const paged = function(pageNumber) { //la función que va a paginar, va a ir cambiando el estado local de la página actual
         setPage(pageNumber)
     };
@@ -58,10 +59,15 @@ export default function Home() {
 
     return(
         <div>
-            <Link to="/recipe">Add Recipe</Link>
-            <h2>Food for foodies</h2>
-            <button onClick={handleClick}>Refresh recipes</button>
+            <h1>Let's cook!</h1>
             <div>
+                <button className="refreshButton" onClick={handleClick}>Refresh recipes</button>
+                <Link className="addRecipe" to="/recipe">
+                    <button className="addButton">Add Recipe</button>
+                </Link>
+            </div>
+            <div>
+                <label>Filters: </label>
                 <select name="alphabetical" onChange={e => handleAlphabeticalSort(e)}>
                     <option disabled selected>Alphabetical</option>
                     <option value="asc">Ascendant</option>
@@ -72,8 +78,9 @@ export default function Home() {
                     <option value="asc">Ascendant</option>
                     <option value="desc">Descendant</option>
                 </select>
+                <label>Diet Types</label>
                 <select name="diets" onChange={e => handleDietTypeFilter(e)}>
-                    <option disabled selected>Diet types</option>
+                    <option disabled selected>Select...</option>
                     <option value="gluten free">Gluten Free</option>
                     <option value="ketogenic">Keto</option>
                     <option value="vegetarian">Vegetarian</option>
@@ -93,16 +100,27 @@ export default function Home() {
             <Paged recipesPage={recipesPage} allRecipes={allRecipes.length} paged={paged}/>
 
             <SearchBar/>
-                        
+
+            <div className="allrecipes">
             {
                 showRecipesPage?.map(e => {
                     return (
-                        <div>
-                            <Recipe image={e.image ? e.image : 'https://images.unsplash.com/photo-1635321593217-40050ad13c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80'} name={e.name} dietTypes={e.dietTypes}/>
+                        <div key={prevId++}>
+                            <Link to={`home/${e.id}`}>
+                                <Recipe
+                                    image={e.image ? 
+                                        e.image : 
+                                        'https://images.unsplash.com/photo-1635321593217-40050ad13c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80'} 
+                                    name={e.name}                             
+                                    dietTypes={e.dietTypes} />
+                            </Link>
                         </div>
                     )
                 })
             }
+            </div>            
+            
+            <Paged recipesPage={recipesPage} allRecipes={allRecipes.length} paged={paged}/>
 
         </div>
 

@@ -1,10 +1,9 @@
 import axios from 'axios';
 import { GET_RECIPES, GET_RECIPE_DETAILS, DIET_TYPE_FILTER, ALPHABETICAL_SORT, SCORE_SORT, SEARCH_RECIPE, GET_DIET_TYPES } from './types';
-const { LOCAL_HOST } = process.env;
 
 export function getRecipes() {
     return async function(dispatch) {
-        try {
+        try {            
             var response = await axios.get('http://localhost:3001/api/recipes');
             return dispatch({type: GET_RECIPES, payload: response.data})
         } catch(error) {

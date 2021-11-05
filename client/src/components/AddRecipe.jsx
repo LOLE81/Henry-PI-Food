@@ -3,12 +3,26 @@ import { useState, useEffect } from 'react'
 import { useDispatch, useSelector, } from 'react-redux';
 import { Link, useHistory } from "react-router-dom";
 import { getDietTypes, addRecipe } from '../actions/index'
+import './addrecipe.css';
+
+
+function validate(input) {
+    const errors = {};
+    if (!input.name) errors.name = 'Please complete with a recipe name';
+    if (!input.summary) errors.summary = 'Please add some comments about your recipe';
+    if (input.score < 1 || input.score > 100) errors.score = 'The score must be a number between 1 and 100';
+    if (input.healthScore < 1 || input.healthScore > 100) errors.healthScore = 'The score must be a number between 1 and 100';
+    if (!input.steps.length) errors.steps = 'Please detail the steps for your recipe';
+    if (!input.dietTypes.length) errors.dietTypes = 'You must select at least one diet type';
+    return errors;
+  }
+
 
 export default function AddRecipe() {
     const dispatch = useDispatch();
-    const dietTypes = useSelector(state => state.dietTypes);
+    const dietTypes = useSelector(state => state.dietTypes);    
     const history =useHistory();
-    
+    const [errors, setErrors] = useState({})
     
     const [input, setInput] = useState({
       name: ''  ,
@@ -18,79 +32,107 @@ export default function AddRecipe() {
       steps: [],
       dietTypes: []
     })
-
-    useEffect(() => {
-        dispatch(getDietTypes());
-    }, [dispatch]);
-
     
     function handleChange(e) {
-        e.preventDefault();
-        setInput({
-            ...input,
-            [e.target.name]: e.target.value
-        })    
-    };
+        e.preventDefault();        
+        console.log(e.target.value)       
+        setInput((prevInput) => {   //// de esta manera el componente muestra los cambios (componentdidupdate?) para poder ir validando
+            const newInput = {
+                ...prevInput,
+                [e.target.name]: e.target.value
+            }
+            const validations = validate(newInput);
+            console.log(newInput)
+            console.log('--------------', validations)
+            setErrors(validations)
+            return newInput
+        });
 
+    };
+    
     function handleCheckBox(e) {        
-        
+       
         let newArray = input.dietTypes;
         let find = newArray.indexOf(e.target.value);
-
+        
         if (find >= 0) {
             newArray.splice(find, 1)
         } else {
             newArray.push(e.target.value)
         }
-
+        
         setInput({
             ...input,
             dietTypes: newArray
         });
-     
+        const validations = validate(input);
+        setErrors(validations)
         console.log(input)
-
+        
     }
-
+    
     function handleSubmit(e) {
-        e.preventDefault();
-        dispatch(addRecipe(input));
-        alert('New recipe added successfully!')
-        setInput({
-            name: "",
-            summary: '',
-            score: '',
-            healthScore: '',
-            steps: [],
-            dietTypes: []
-        })    
-        history.push('/home')
+        e.preventDefault();        
+        
+        if (Object.values(errors).length > 0) {
+            alert("Please complete the information required");
+        } else if (Object.values(input).length < 1) {
+            alert("Please complete the form");
+        } else { 
+            dispatch(addRecipe(input));
+            console.log(input)
+            alert('New recipe added successfully!')
+            setInput({
+                name: "",
+                summary: '',
+                score: '',
+                healthScore: '',
+                steps: [],
+                dietTypes: []
+            });         
+            history.push('/home')
+        }
     };
+    
+    useEffect(() => {
+        dispatch(getDietTypes());
+    }, [dispatch]);
 
     return (
         <div>
-            <Link to="/home"><button>Go back</button></Link>
             <h1>Creat your own recipe!</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Name</label>
-                    <input name="name" type="text" value={input.name} onChange={handleChange}/>
+                    <input name="name" type="text" value={input.name} onChange={e => handleChange(e)}/>
+                    {errors.name && (
+                        <span style={{ color: "red" }}>{errors.name}</span>
+                        )}
                 </div>
                 <div>
                     <label>Summary</label>
-                    <input name="summary" type="text" value={input.summary} onChange={handleChange}/>
+                    <input name="summary" type="text" value={input.summary} onChange={e => handleChange(e)}/>
+                    {errors.summary && (
+                        <span style={{ color: "red" }}>{errors.summary}</span>
+                        )}
                 </div>
                 <div>
                     <label>Score</label>
-                    <input name="score" type="number" value={input.score} onChange={handleChange}/>
+                    <input name="score" type="number" value={input.score} onChange={e => handleChange(e)}/>
+                    {errors.score && (
+                        <span style={{ color: "red" }}>{errors.score}</span>
+                        )}
                 </div>
                 <div>
                     <label>Health Score</label>
-                    <input name="healthScore" type="number" value={input.healthScore} onChange={handleChange}/>
+                    <input name="healthScore" type="number" value={input.healthScore} onChange={e => handleChange(e)}/>
+                    {errors.healthScore && (
+                        <span style={{ color: "red" }}>{errors.healthScore}</span>
+                        )}
                 </div>
                 <div>
-                    <label>Steps</label>
-                    <input name="steps" type="text" value={input.steps} onChange={handleChange}/>
+                    <label>Steps</label><br/>
+                    <textarea name="steps" type="text" rows="3" cols="30" value={input.steps} onChange={e => handleChange(e)}/>
                 </div>
                 <div>
                     <label>Diet Types</label>
@@ -102,8 +144,12 @@ export default function AddRecipe() {
                             </div>
                         )
                     })}
+                    {errors.dietTypes && (
+                        <span style={{ color: "red" }}>{errors.dietTypes}</span>
+                        )}
                 </div>
-                <button type="submit">Submit Recipe</button>
+                <button className="submitButton" type="submit">Submit Recipe</button>
+                <Link to="/home"><button className="goBackButton">Go back</button></Link>
             </form>
         </div>
 
