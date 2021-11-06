@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRecipeDetails } from '../actions';
 import { Link } from 'react-router-dom'
+import "./recipedetails.css";
 
 
 export default function RecipeDetails(props) {
@@ -18,38 +19,60 @@ export default function RecipeDetails(props) {
     const recipeDetails = useSelector(state => state.recipeDetails);
 
     return (
-        <div key={id}>
-            <img src={recipeDetails.image ? recipeDetails.image : 'https://images.unsplash.com/photo-1635321593217-40050ad13c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80'} alt="Pic not found" width="400px" height="200px" />
-            <h1>{recipeDetails.name}</h1>
-            <h2>{recipeDetails.dishTypes?.map(e => {
-                return(
-                    <span key={e}>|{e}| </span>
-                )
-            })}</h2>
-            <h2>Diet Types: {recipeDetails.dietTypes ? recipeDetails.dietTypes.map(e => {
-                return(
-                    <span key={e}>|{e}| </span>
-                )
-            }) :
-            recipeDetails.diets?.map(e => {
-                return(
-                    <span key={e.name}>|{e.name}| </span>
-                )
-            })
-            }</h2>
-            <p>Summary: {recipeDetails.summary?.replace(/<[^>]*>/g, '')}</p>
-            <h3>Score: {recipeDetails.score}</h3>
-            <h3>Healthiness points: {recipeDetails.healthScore}</h3>
-            <ul style={{listStyleType: "none"}}>Steps: {Array.isArray(recipeDetails.steps) ? recipeDetails.steps.map(e => {
-                return(
-                    <li key={e.number}>{e.step}</li>
+        <div className="details" key={id}>
+            <div className="divimg">
+                <img className="detailImg" src={recipeDetails.image ? recipeDetails.image : 'https://images.unsplash.com/photo-1635321593217-40050ad13c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80'} alt="Pic not found" width="400px"
+                height="250px"/>
+            </div>
+
+            <h1 className="texts">{recipeDetails.name}</h1>
+
+            <div className="ddsh">
+                <h2 className="texts">Dish Type: </h2>
+                {recipeDetails.dishTypes?.map(e => {
+                    return(
+                        <h2 className="dishesanddiets" key={e}>{e}</h2>
                     )
-            }) :
-            <li>{recipeDetails.steps}</li>
-            }</ul>
+                })}
+            </div>
+
+            <div className="ddsh">
+                <h2 className="texts">Diet Type: </h2> 
+                {recipeDetails.dietTypes ? recipeDetails.dietTypes.map(e => {
+                    return(
+                        <h2 className="dishesanddiets" key={e}>{e}</h2>
+                    )
+                }) :
+                recipeDetails.diets?.map(e => {
+                    return(
+                        <h2 className="dishesanddiets" key={e.name}>{e.name}</h2>
+                    )
+                })}
+            </div>
+
+            <div className="ddsh">
+                <h3 className="texts">Summary: </h3>
+                <p className="summary">{recipeDetails.summary?.replace(/<[^>]*>/g, '')}</p>
+            </div>
+            
+            <div className="ddsh">
+                <h3 className="scores">Score: {recipeDetails.score}</h3>
+                <h3 className="scores">Healthiness points: {recipeDetails.healthScore}</h3>
+            </div>   
+
+            <div className="ddsh">
+                <h3 className="texts">Steps: </h3>
+                <ul className="steps">{Array.isArray(recipeDetails.steps) ? recipeDetails.steps.map(e => {
+                    return(
+                        <li key={e.number}>{e.step}</li>
+                        )
+                }) :
+                <li>{recipeDetails.steps}</li>
+                }</ul>
+            </div>
             
             <Link to="/home">
-                <button>Go back</button>
+                <button className="backButton">Go back to recipes</button>
             </Link>
 
         </div>

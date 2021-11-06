@@ -1,0 +1,89 @@
+.backButton {
+    color: rgb(231, 218, 218);
+    background-color: #ce5249;
+    font-size: 17px;
+    text-align: center;
+    padding: 10px 25px;
+    margin: 5px;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px 1px rgb(112, 44, 44);
+    cursor: pointer;
+}
+
+.backButton:hover {
+    color:#ce5249;
+    background-color: rgb(231, 218, 218);
+}
+
+.details {
+    margin: 10px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.texts {
+    text-shadow: 6px 4px 5px rgba(0,0,0,0.43);
+    display: flex;
+    justify-content: center;
+}
+
+.divimg {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.detailImg {
+    margin: 5px;
+    display: flex;   
+    box-shadow: 3px 3px 5px 1px rgb(112, 44, 44);
+}
+
+.ddsh {
+    display: flex;
+    justify-content: center;    
+}
+
+.dishesanddiets {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 1px;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px 1px rgb(112, 44, 44);
+    background-color: rgb(231, 218, 218, 0.3);
+    
+}
+
+.scores {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin-left: 2px;
+    margin-right: 2px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 1px;
+    border-radius: 3px;
+    box-shadow: 3px 3px 5px 1px rgb(112, 44, 44);
+    background-color: rgb(231, 218, 218, 0.3);
+}
+
+.summary {
+    text-align: justify;
+    background-color: rgb(231, 218, 218, 0.3);
+}
+
+.steps {
+    text-align: justify;
+    list-style: none;
+    background-color: rgb(231, 218, 218, 0.3);
+}

@@ -5,17 +5,27 @@ import './recipe.css';
 let prevId = 1;
 
 export default function Recipe(recipes) {
-    const { image, name, dietTypes } = recipes    
+    const { image, name, dietTypes } = recipes
+   
     return (
         <div className="recipe">
-            <img src={image} alt="Not found" width="250px" height="200px" />
-            <h2>{name}</h2>            
-            <h3>{dietTypes?.map(e => {
-                return (
-                    <span key={prevId++}>|{e}| </span>
-                )
-            })}
-            </h3>
+            
+            <div>
+                <img className="recipeImg" src={image} alt="Not found"/>
+            </div>
+            
+            <div>
+                <h2 className="recipeName">{name}</h2>            
+            </div>
+
+            <div className="dietcointainer">
+                {dietTypes?.map(e => {
+                    return (
+                        <h5 className="diets" key={prevId++}>{e}</h5>
+                    )
+                })}            
+            </div>
+            
         </div>
     )
 };

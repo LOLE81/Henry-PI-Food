@@ -58,7 +58,7 @@ export default function Home() {
     }
 
     return(
-        <div>
+        <div className="home">
             <h1>Let's cook!</h1>
             <div>
                 <button className="refreshButton" onClick={handleClick}>Refresh recipes</button>
@@ -105,12 +105,12 @@ export default function Home() {
             {
                 showRecipesPage?.map(e => {
                     return (
-                        <div key={prevId++}>
-                            <Link to={`home/${e.id}`}>
+                        <div className="eachRecipe" key={prevId++}>
+                            <Link className="linkRecetas" to={`home/${e.id}`}>
                                 <Recipe
                                     image={e.image ? 
-                                        e.image : 
-                                        'https://images.unsplash.com/photo-1635321593217-40050ad13c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80'} 
+                                        e.image :
+                                        'https://images.unsplash.com/photo-1635321593217-40050ad13c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80'}
                                     name={e.name}                             
                                     dietTypes={e.dietTypes} />
                             </Link>
