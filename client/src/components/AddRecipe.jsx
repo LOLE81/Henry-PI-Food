@@ -99,54 +99,56 @@ export default function AddRecipe() {
     }, [dispatch]);
 
     return (
-        <div>
-            <h1>Creat your own recipe!</h1>
+        <div className="addRecipe">
+            <h1 className="msg">Creat your own recipe!</h1>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Name</label>
-                    <input name="name" type="text" value={input.name} onChange={e => handleChange(e)}/>
-                    {errors.name && (
-                        <span style={{ color: "red" }}>{errors.name}</span>
-                        )}
-                </div>
-                <div>
-                    <label>Summary</label>
-                    <input name="summary" type="text" value={input.summary} onChange={e => handleChange(e)}/>
-                    {errors.summary && (
-                        <span style={{ color: "red" }}>{errors.summary}</span>
-                        )}
-                </div>
-                <div>
-                    <label>Score</label>
-                    <input name="score" type="number" value={input.score} onChange={e => handleChange(e)}/>
-                    {errors.score && (
-                        <span style={{ color: "red" }}>{errors.score}</span>
-                        )}
-                </div>
-                <div>
-                    <label>Health Score</label>
-                    <input name="healthScore" type="number" value={input.healthScore} onChange={e => handleChange(e)}/>
-                    {errors.healthScore && (
-                        <span style={{ color: "red" }}>{errors.healthScore}</span>
-                        )}
-                </div>
-                <div>
-                    <label>Steps</label><br/>
-                    <textarea name="steps" type="text" rows="3" cols="30" value={input.steps} onChange={e => handleChange(e)}/>
-                </div>
-                <div>
-                    <label>Diet Types</label>
-                    {dietTypes.map(d =>{
-                        return (
-                            <div>
-                                <label>{d}</label>
-                                <input type="checkbox" name={d} value={d} selected={input.dietTypes.includes(d)} onChange={e => handleCheckBox(e)}/>
-                            </div>
-                        )
-                    })}
-                    {errors.dietTypes && (
-                        <span style={{ color: "red" }}>{errors.dietTypes}</span>
-                        )}
+                <div className="form">
+                    <div className="nameInput">
+                        <label className="msgs">Name:</label>
+                        <input name="name" type="text" value={input.name} onChange={e => handleChange(e)}/>
+                        {errors.name && (
+                            <span style={{ color: "red" }}>{errors.name}</span>
+                            )}
+                    </div>
+                    <div className="nameInput">
+                        <label className="msgs">Summary:</label>
+                        <input name="summary" type="text" value={input.summary} onChange={e => handleChange(e)}/>
+                        {errors.summary && (
+                            <span style={{ color: "red" }}>{errors.summary}</span>
+                            )}
+                    </div>
+                    <div className="nameInput">
+                        <label className="msgs">Score:</label>
+                        <input name="score" type="number" value={input.score} onChange={e => handleChange(e)}/>
+                        {errors.score && (
+                            <span style={{ color: "red" }}>{errors.score}</span>
+                            )}
+                    </div>
+                    <div className="nameInput">
+                        <label className="msgs">Health Score:</label>
+                        <input name="healthScore" type="number" value={input.healthScore} onChange={e => handleChange(e)}/>
+                        {errors.healthScore && (
+                            <span style={{ color: "red" }}>{errors.healthScore}</span>
+                            )}
+                    </div>
+                    <div className="nameInput">
+                        <label className="msgs">Steps:</label><br/>
+                        <textarea name="steps" type="text" rows="4" cols="40" value={input.steps} onChange={e => handleChange(e)}/>
+                    </div>
+                    <div className="checkSelect">
+                        <label className="msgs">Diet Types:</label>
+                        {dietTypes.map(d =>{
+                            return (
+                                <div className="checks">
+                                    <label className="dietTypes">{d}</label>
+                                    <input className="checks" type="checkbox" name={d} value={d} selected={input.dietTypes.includes(d)} onChange={e => handleCheckBox(e)}/>
+                                </div>
+                            )
+                        })}
+                        {errors.dietTypes && (
+                            <span style={{ color: "red" }}>{errors.dietTypes}</span>
+                            )}
+                    </div>
                 </div>
                 <button className="submitButton" type="submit">Submit Recipe</button>
                 <Link to="/home"><button className="goBackButton">Go back</button></Link>

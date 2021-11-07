@@ -8,6 +8,7 @@ import Paged from './Paged';
 import SearchBar from './SearchBar';
 import './home.css'
 
+
 let prevId = 1;
 
 export default function Home() {
@@ -59,27 +60,27 @@ export default function Home() {
 
     return(
         <div className="home">
-            <h1>Let's cook!</h1>
+            <h1 className="initialMsg">Let's do it!</h1>
             <div>
                 <button className="refreshButton" onClick={handleClick}>Refresh recipes</button>
-                <Link className="addRecipe" to="/recipe">
+                <Link to="/recipe">
                     <button className="addButton">Add Recipe</button>
                 </Link>
             </div>
-            <div>
-                <label>Filters: </label>
-                <select name="alphabetical" onChange={e => handleAlphabeticalSort(e)}>
+            <div className="select">
+                <label className="filters">Filters:</label>
+                <select className="select" name="alphabetical" onChange={e => handleAlphabeticalSort(e)}>
                     <option disabled selected>Alphabetical</option>
-                    <option value="asc">Ascendant</option>
-                    <option value="desc">Descendant</option>
+                    <option value="asc">A to Z</option>
+                    <option value="desc">Z to A</option>
                 </select>
-                <select name="numerical" onChange={e => handleScoreSort(e)}>
+                <select className="select" name="numerical" onChange={e => handleScoreSort(e)}>
                     <option disabled selected>Score</option>
-                    <option value="asc">Ascendant</option>
-                    <option value="desc">Descendant</option>
+                    <option value="asc">From Min to Max</option>
+                    <option value="desc">From Max to Min</option>
                 </select>
-                <label>Diet Types</label>
-                <select name="diets" onChange={e => handleDietTypeFilter(e)}>
+                <label className="filters">Diet Types:</label>
+                <select className="select" name="diets" onChange={e => handleDietTypeFilter(e)}>
                     <option disabled selected>Select...</option>
                     <option value="gluten free">Gluten Free</option>
                     <option value="ketogenic">Keto</option>
@@ -98,7 +99,7 @@ export default function Home() {
             </div>
 
             <Paged recipesPage={recipesPage} allRecipes={allRecipes.length} paged={paged}/>
-
+           
             <SearchBar/>
 
             <div className="allrecipes">

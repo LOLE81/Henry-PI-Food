@@ -38,17 +38,3 @@
   }
 }
 
-.page {
-  display: flex;
-  align-content: center;
-  flex-direction: row;
-  padding: 1px 5px;
-  
-}
-
-.pagination {
-  padding: 5px 300px;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-}

@@ -3,7 +3,7 @@ const axios = require('axios');
 const { Recipe, Diet } = require('../db');
 const { getApiInfo, getBdInfo, getAllRecipes, getDbInfo, getDbById} = require('../controllers/recipes');
 const router = Router();
-const { API_KEY } = process.env;
+const { API_KEY, API_KEY1 } = process.env;
   
 // Controller functions: 
 // const getApiInfo = async () => {
@@ -97,7 +97,7 @@ router.get('/:id', async (req, res, next) => {
             let dbRecipesById = await getDbById(id);            
             return res.json(dbRecipesById)
         } else { 
-            apiRecipesById = await axios.get (`https://api.spoonacular.com/recipes/${id}/information?${API_KEY}`)                
+            apiRecipesById = await axios.get (`https://api.spoonacular.com/recipes/${id}/information?${API_KEY1}`)                
             if (apiRecipesById.data.id) {
                 let recipeDetails =  {                    
                     image: apiRecipesById.data.image,
