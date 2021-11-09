@@ -33,16 +33,16 @@ export default function rootReducer(state = initialState, action) {
             recipes: filteredByDietType
           };
 
-        case ALPHABETICAL_SORT:
+        case ALPHABETICAL_SORT:          
           let sortedRecipes = action.payload === 'asc' ?
           state.recipes.sort(function(a, b) {
-            if (a.name > b.name) return 1;
-            if (a.name < b.name) return -1;
+            if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+            if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
             return 0;
           }) :
           state.recipes.sort(function(a, b) {
-            if (a.name < b.name) return 1;
-            if (a.name > b.name) return -1;
+            if (a.name.toLowerCase() < b.name.toLowerCase()) return 1;
+            if (a.name.toLowerCase() > b.name.toLowerCase()) return -1;
             return 0;
           });          
           return {

@@ -15,7 +15,7 @@ function validate(input) {
     if (!input.steps.length) errors.steps = 'Please detail the steps for your recipe';
     if (!input.dietTypes.length) errors.dietTypes = 'You must select at least one diet type';
     return errors;
-  }
+};
 
 
 export default function AddRecipe() {
@@ -25,14 +25,18 @@ export default function AddRecipe() {
     const [errors, setErrors] = useState({})
     
     const [input, setInput] = useState({
-      name: ''  ,
-      summary: '',
-      score: '',
-      healthScore: '',
-      steps: [],
-      dietTypes: []
+        name: ''  ,
+        summary: '',
+        score: '',
+        healthScore: '',
+        steps: '',
+        dietTypes: []
     })
     
+    useEffect(() => {
+        dispatch(getDietTypes());
+    }, [dispatch]);
+
     function handleChange(e) {
         e.preventDefault();        
         console.log(e.target.value)       
@@ -72,15 +76,22 @@ export default function AddRecipe() {
     }
     
     function handleSubmit(e) {
-        e.preventDefault();        
-        
-        if (Object.values(errors).length > 0) {
-            alert("Please complete the information required");
-        } else if (Object.values(input).length < 1) {
-            alert("Please complete the form");
-        } else { 
+         e.preventDefault();
+
+         if (Object.values(errors).length > 0) {
+             alert("Please complete the information required");
+         } else if (
+            input.name === '' && 
+            input.summary === '' && 
+            input.score === '' &&
+            input.healthScore === '' &&
+            input.steps === '' &&
+            !input.dietTypes.length) {
+            alert("Please complete the form");}
+        else {
             dispatch(addRecipe(input));
-            console.log(input)
+            console.log(input.steps)
+            console.log(input.dietTypes)
             alert('New recipe added successfully!')
             setInput({
                 name: "",
@@ -94,60 +105,60 @@ export default function AddRecipe() {
         }
     };
     
-    useEffect(() => {
-        dispatch(getDietTypes());
-    }, [dispatch]);
-
+    console.log(input.dietTypes)
     return (
         <div className="addRecipe">
             <h1 className="msg">Creat your own recipe!</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={e => handleSubmit(e)}>
                 <div className="form">
                     <div className="nameInput">
                         <label className="msgs">Name:</label>
                         <input name="name" type="text" value={input.name} onChange={e => handleChange(e)}/>
                         {errors.name && (
-                            <span style={{ color: "red" }}>{errors.name}</span>
-                            )}
+                            <span className="errors">{errors.name}</span>
+                        )}
                     </div>
                     <div className="nameInput">
                         <label className="msgs">Summary:</label>
                         <input name="summary" type="text" value={input.summary} onChange={e => handleChange(e)}/>
                         {errors.summary && (
-                            <span style={{ color: "red" }}>{errors.summary}</span>
-                            )}
+                            <span className="errors">{errors.summary}</span>
+                        )}
                     </div>
                     <div className="nameInput">
                         <label className="msgs">Score:</label>
                         <input name="score" type="number" value={input.score} onChange={e => handleChange(e)}/>
                         {errors.score && (
-                            <span style={{ color: "red" }}>{errors.score}</span>
-                            )}
+                            <span className="errors">{errors.score}</span>
+                        )}
                     </div>
                     <div className="nameInput">
                         <label className="msgs">Health Score:</label>
                         <input name="healthScore" type="number" value={input.healthScore} onChange={e => handleChange(e)}/>
                         {errors.healthScore && (
-                            <span style={{ color: "red" }}>{errors.healthScore}</span>
-                            )}
+                            <span className="errors">{errors.healthScore}</span>
+                        )}
                     </div>
                     <div className="nameInput">
-                        <label className="msgs">Steps:</label><br/>
+                        <label className="msgs">Steps:</label>
                         <textarea name="steps" type="text" rows="4" cols="40" value={input.steps} onChange={e => handleChange(e)}/>
+                        {errors.steps && (
+                            <span className="errors">{errors.steps}</span>
+                        )}
                     </div>
                     <div className="checkSelect">
                         <label className="msgs">Diet Types:</label>
                         {dietTypes.map(d =>{
                             return (
-                                <div className="checks">
+                                <div key={d} className="checks">
                                     <label className="dietTypes">{d}</label>
                                     <input className="checks" type="checkbox" name={d} value={d} selected={input.dietTypes.includes(d)} onChange={e => handleCheckBox(e)}/>
                                 </div>
                             )
                         })}
                         {errors.dietTypes && (
-                            <span style={{ color: "red" }}>{errors.dietTypes}</span>
-                            )}
+                            <span className="errors">{errors.dietTypes}</span>
+                        )}
                     </div>
                 </div>
                 <button className="submitButton" type="submit">Submit Recipe</button>

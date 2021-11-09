@@ -46,6 +46,7 @@ export default function Home() {
 
     function handleAlphabeticalSort(e) {
         e.preventDefault();
+        console.log(allRecipes)
         dispatch(aplhabeticalSort(e.target.value))
         setPage(1);
         setOrder(`Order ${e.target.value}`);

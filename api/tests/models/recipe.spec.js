@@ -1,7 +1,7 @@
 const { Recipe, conn } = require('../../src/db.js');
 const { expect } = require('chai');
 
-describe('Recipe model', () => {
+describe('Recipe model test', () => {
   before(() => conn.authenticate()
     .catch((err) => {
       console.error('Unable to connect to the database:', err);
@@ -15,7 +15,7 @@ describe('Recipe model', () => {
           .catch(() => done());
       });
       it('should work when its a valid name', () => {
-        Recipe.create({ name: 'Milanesa a la napolitana' });
+        Recipe.create({ name: 'Filé de frango á Parmiegiana'});
       });
     });
   });

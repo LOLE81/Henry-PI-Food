@@ -105,3 +105,9 @@
     justify-content: center;
     padding: 1px;
 }
+
+.errors {
+    font-family: sans-serif;
+    color: rgb(222, 135, 139);
+    font-size: 14px;
+}

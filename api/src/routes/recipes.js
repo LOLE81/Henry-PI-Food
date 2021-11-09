@@ -95,7 +95,7 @@ router.get('/:id', async (req, res, next) => {
     try {
         if (/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {
             let dbRecipesById = await getDbById(id);            
-            return res.json(dbRecipesById)
+            return res.status(200).json(dbRecipesById)
         } else { 
             apiRecipesById = await axios.get (`https://api.spoonacular.com/recipes/${id}/information?${API_KEY1}`)                
             if (apiRecipesById.data.id) {
