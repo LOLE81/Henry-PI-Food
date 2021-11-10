@@ -21,7 +21,7 @@ function validate(input) {
 export default function AddRecipe() {
     const dispatch = useDispatch();
     const dietTypes = useSelector(state => state.dietTypes);    
-    const history =useHistory();
+    const history = useHistory();
     const [errors, setErrors] = useState({})
     
     const [input, setInput] = useState({

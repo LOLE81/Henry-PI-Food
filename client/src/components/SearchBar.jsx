@@ -15,14 +15,23 @@ export default function SearchBar() {
     };
 
     function handleSubmit(e) {
-        e.preventDefault();
-        dispatch(getRecipesByName(input));
-        setInput('');
+       
+        try {
+            dispatch(getRecipesByName(input));
+            
+        } catch (error) {            
+            return error;
+        }
+
+        setInput('')
+        
     };
+
+   
 
     return (
         <div>
-            <input type="text" placeholder="Search recipe by name" onChange={e => handleChange(e)}/>
+            <input type="text" placeholder="Search recipe by name" value={input} onChange={e => handleChange(e)}/>
             <button className="searchButton" type="submit" onClick={e => handleSubmit(e)}>Search</button>
         </div>
     )

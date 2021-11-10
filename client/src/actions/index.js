@@ -17,8 +17,8 @@ export function getRecipesByName(payload) {
         try {
             var response = await axios.get(`${LOCAL_HOST}/api/recipes?name=${payload}`);
             return dispatch({type: SEARCH_RECIPE, payload: response.data})
-        } catch(error) {
-            console.log(error)
+        } catch {
+            return alert ('Recipe Not Found')
         }
     }
 }

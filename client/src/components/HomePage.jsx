@@ -22,7 +22,7 @@ export default function Home() {
     const quantityRecipesPage = page * recipesPage; // 9 ---> va a ser la cantidad que muestre por página
     const firstRecipePage = quantityRecipesPage - recipesPage; // 0 ---> va a ser el índice de la primer receta mostrada
     const showRecipesPage = allRecipes.slice(firstRecipePage, quantityRecipesPage); // de todos las recetas, éstas son las que voy a mostrar por página
-    console.log(showRecipesPage)
+    
     const paged = function(pageNumber) { //la función que va a paginar, va a ir cambiando el estado local de la página actual
         setPage(pageNumber)
     };
@@ -45,15 +45,14 @@ export default function Home() {
     }
 
     function handleAlphabeticalSort(e) {
-        e.preventDefault();
-        console.log(allRecipes)
+        e.preventDefault();                
         dispatch(aplhabeticalSort(e.target.value))
         setPage(1);
         setOrder(`Order ${e.target.value}`);
     }
-
+    
     function handleScoreSort(e) {
-        e.preventDefault();
+        e.preventDefault();                
         dispatch(scoreSort(e.target.value));
         setPage(1);
         setOrder(`Order ${e.target.value}`);
@@ -69,11 +68,11 @@ export default function Home() {
                 </Link>
             </div>
             <div className="select">
-                <label className="filters">Filters:</label>
+                <label className="filters">Sort:</label>
                 <select className="select" name="alphabetical" onChange={e => handleAlphabeticalSort(e)}>
                     <option disabled selected>Alphabetical</option>
-                    <option value="asc">A to Z</option>
-                    <option value="desc">Z to A</option>
+                    <option value="atoz">A to Z</option>
+                    <option value="ztoa">Z to A</option>
                 </select>
                 <select className="select" name="numerical" onChange={e => handleScoreSort(e)}>
                     <option disabled selected>Score</option>

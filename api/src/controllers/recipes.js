@@ -12,7 +12,7 @@ const getApiInfo = async () => {
             id: e.id,
             image: e.image,
             name: e.title,
-            dietTypes: e.diets, //// me trae un arreglo
+            dietTypes: e.diets,
             summary: e.summary,
             score: e.spoonacularScore,
             healthScore: e.healthScore,
@@ -41,6 +41,11 @@ const getDbInfo = async () => {
     });
 }
 
+const getApiById = async (id) => {
+    return await axios.get (`https://api.spoonacular.com/recipes/${id}/information?${API_KEY1}`)
+}
+
+
 const getDbById = async (id) => {
     return await Recipe.findByPk(id, {
         include: {
@@ -61,10 +66,11 @@ const getAllRecipes = async () => {
     return totalInfo;
 }
 
-// Hasta acá las controller functions ----> Crear archivo nuevo, modularizar, exportar e importar acá.
+
 module.exports = {
     getApiInfo,
     getDbInfo,
     getAllRecipes,
-    getDbById
+    getDbById,
+    getApiById
 }

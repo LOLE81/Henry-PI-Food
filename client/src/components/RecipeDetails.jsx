@@ -9,24 +9,29 @@ import "./recipedetails.css";
 export default function RecipeDetails(props) {
     const dispatch = useDispatch();
     const id = props.match.params.id;
- 
+    
     
     useEffect(() => {
         dispatch(getRecipeDetails(id))
     }, [dispatch, id]);
-
-
+    
+    
     const recipeDetails = useSelector(state => state.recipeDetails);
-
+    
     return (
-        <div className="details" key={id}>
+        
+        <div className="details" key={id}>            
+                  
             <div className="divimg">
-                <img className="detailImg" src={recipeDetails.image ? recipeDetails.image : 'https://images.unsplash.com/photo-1635321593217-40050ad13c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80'} alt="Pic not found" width="400px"
-                height="250px"/>
+                <img className="detailImg" 
+                src={recipeDetails.image ? 
+                recipeDetails.image : 
+                'https://images.unsplash.com/photo-1635321593217-40050ad13c74?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1748&q=80'} alt="Pic not found"/>
             </div>
 
             <h1 className="texts">{recipeDetails.name}</h1>
 
+            {recipeDetails.dietTypes ?
             <div className="ddsh">
                 <h2 className="texts">Dish Type: </h2>
                 {recipeDetails.dishTypes?.map(e => {
@@ -34,7 +39,9 @@ export default function RecipeDetails(props) {
                         <h2 className="dishesanddiets" key={e}>{e}</h2>
                     )
                 })}
-            </div>
+            </div> :
+            <br />
+            }
 
             <div className="ddsh">
                 <h2 className="texts">Diet Type: </h2> 
@@ -74,9 +81,9 @@ export default function RecipeDetails(props) {
             <Link to="/home">
                 <button className="backButton">Go back to recipes</button>
             </Link>
-
+            
         </div>
 
-    )
-
+    )      
+        
 }
