@@ -20,7 +20,7 @@ function validate(input) {
 
 export default function AddRecipe() {
     const dispatch = useDispatch();
-    const dietTypes = useSelector(state => state.dietTypes);    
+    const dietTypes = useSelector(state => state.dietTypes);
     const history = useHistory();
     const [errors, setErrors] = useState({})
     
@@ -38,23 +38,20 @@ export default function AddRecipe() {
     }, [dispatch]);
 
     function handleChange(e) {
-        e.preventDefault();        
-        console.log(e.target.value)       
+        e.preventDefault();
         setInput((prevInput) => {   //// de esta manera el componente muestra los cambios (componentdidupdate?) para poder ir validando
             const newInput = {
                 ...prevInput,
                 [e.target.name]: e.target.value
             }
             const validations = validate(newInput);
-            console.log(newInput)
-            console.log('--------------', validations)
             setErrors(validations)
             return newInput
         });
 
     };
     
-    function handleCheckBox(e) {        
+    function handleCheckBox(e) {
        
         let newArray = input.dietTypes;
         let find = newArray.indexOf(e.target.value);
@@ -71,7 +68,6 @@ export default function AddRecipe() {
         });
         const validations = validate(input);
         setErrors(validations)
-        console.log(input)
         
     }
     
@@ -90,8 +86,6 @@ export default function AddRecipe() {
             alert("Please complete the form");}
         else {
             dispatch(addRecipe(input));
-            console.log(input.steps)
-            console.log(input.dietTypes)
             alert('New recipe added successfully!')
             setInput({
                 name: "",
@@ -100,12 +94,12 @@ export default function AddRecipe() {
                 healthScore: '',
                 steps: [],
                 dietTypes: []
-            });         
+            });
             history.push('/home')
         }
     };
     
-    console.log(input.dietTypes)
+    
     return (
         <div className="addRecipe">
             <h1 className="msg">Creat your own recipe!</h1>
@@ -120,7 +114,7 @@ export default function AddRecipe() {
                     </div>
                     <div className="nameInput">
                         <label className="msgs">Summary:</label>
-                        <input name="summary" type="text" value={input.summary} onChange={e => handleChange(e)}/>
+                        <textarea name="summary" type="text" rows="4" cols="30" value={input.summary} onChange={e => handleChange(e)}/>
                         {errors.summary && (
                             <span className="errors">{errors.summary}</span>
                         )}

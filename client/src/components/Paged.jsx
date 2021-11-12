@@ -8,11 +8,11 @@ export default function Paged({recipesPage, allRecipes, paged}) { //le paso por 
         pages.push(i)
     };
     
-    if (pages.length <= 1) {<br></br>}
-    
+        
     return(
         
         <div>
+            
             {pages.length <= 1 ? 
             <h1></h1> :
             <nav className="pagination">
@@ -20,8 +20,8 @@ export default function Paged({recipesPage, allRecipes, paged}) { //le paso por 
                 <ul className="pages">
                     {pages?.map(p =>(
                         <li className="page" key={p}>
-                                <a onClick={() => paged(p)} style={{width:"30px"}}>{p}</a>
-                            </li>
+                            <a onClick={() => paged(p)} style={{width:"30px"}}>{p}</a>
+                        </li>
                     ))}
                 </ul>
     

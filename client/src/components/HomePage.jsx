@@ -17,6 +17,7 @@ export default function Home() {
     const allRecipes = useSelector((state) => state.recipes); // con el hook me traigo el estado de recipes
     
     const [order, setOrder] = useState('') // creo un estado local para indicar el orden
+    
     const [page, setPage] = useState(1); // creo un estado local para la página actual
     const [recipesPage, setRecipesPage] = useState(9); // creo otro estado local con la cantidad de recetas por página
     const quantityRecipesPage = page * recipesPage; // 9 ---> va a ser la cantidad que muestre por página
@@ -42,6 +43,7 @@ export default function Home() {
     function handleDietTypeFilter(e) {
         e.preventDefault();
         dispatch(dietTypeFilter(e.target.value))
+        setPage(1);
     }
 
     function handleAlphabeticalSort(e) {
@@ -64,7 +66,7 @@ export default function Home() {
             <div>
                 <button className="refreshButton" onClick={handleClick}>Refresh recipes</button>
                 <Link to="/recipe">
-                    <button className="addButton">Add Recipe</button>
+                    <button className="addButton">Add new recipe</button>
                 </Link>
             </div>
             <div className="select">

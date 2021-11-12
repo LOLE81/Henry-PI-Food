@@ -1,9 +1,10 @@
 const { Router } = require('express');
 const axios = require('axios');
-const { Recipe, Diet } = require('../db');
 const { getApiById, getAllRecipes, getDbById} = require('../controllers/recipes');
-const router = Router();
+const { Recipe, Diet } = require('../db');
 const { API_KEY, API_KEY1 } = process.env;
+
+const router = Router();
 
 
 router.get('/', async (req, res, next) => {
@@ -26,7 +27,7 @@ router.get('/', async (req, res, next) => {
                 })
                 return res.status(200).send(recipes); 
             }  
-        return res.status(404).send('Sorry, recipe not found')
+            return res.status(404).send('Sorry, recipe not found')
         } else {
             let recipes = allRecipes.map(e => {
                 return {
@@ -44,8 +45,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/:id', async (req, res, next) => {
-    //mostrar image, name, dietTypes, dishTypes, summary, score, healthScore, steps 
+router.get('/:id', async (req, res, next) => {    
     const { id } = req.params  
     try {
         if (/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(id)) {

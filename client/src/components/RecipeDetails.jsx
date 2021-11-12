@@ -31,7 +31,7 @@ export default function RecipeDetails(props) {
 
             <h1 className="texts">{recipeDetails.name}</h1>
 
-            {recipeDetails.dietTypes ?
+            {recipeDetails.dishTypes ?
             <div className="ddsh">
                 <h2 className="texts">Dish Type: </h2>
                 {recipeDetails.dishTypes?.map(e => {
