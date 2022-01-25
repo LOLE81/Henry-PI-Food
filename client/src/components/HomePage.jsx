@@ -13,23 +13,25 @@ let prevId = 1;
 
 export default function Home() {
     
-    const dispatch = useDispatch(); // declaro una const con la función que retorna el dispatch con sus acciones
-    const allRecipes = useSelector((state) => state.recipes); // con el hook me traigo el estado de recipes
+    const dispatch = useDispatch();
+    const allRecipes = useSelector((state) => state.recipes);
     
-    const [order, setOrder] = useState('') // creo un estado local para indicar el orden
+    const [order, setOrder] = useState('')
     
-    const [page, setPage] = useState(1); // creo un estado local para la página actual
-    const [recipesPage, setRecipesPage] = useState(9); // creo otro estado local con la cantidad de recetas por página
-    const quantityRecipesPage = page * recipesPage; // 9 ---> va a ser la cantidad que muestre por página
-    const firstRecipePage = quantityRecipesPage - recipesPage; // 0 ---> va a ser el índice de la primer receta mostrada
-    const showRecipesPage = allRecipes.slice(firstRecipePage, quantityRecipesPage); // de todos las recetas, éstas son las que voy a mostrar por página
     
-    const paged = function(pageNumber) { //la función que va a paginar, va a ir cambiando el estado local de la página actual
+    const [page, setPage] = useState(1);
+    const [recipesPage, setRecipesPage] = useState(9);
+    
+    const quantityRecipesPage = page * recipesPage;
+    const firstRecipePage = quantityRecipesPage - recipesPage;
+    const showRecipesPage = allRecipes.slice(firstRecipePage, quantityRecipesPage);
+    
+    const paged = function(pageNumber) {
         setPage(pageNumber)
     };
 
 
-    useEffect(() => {                   // component did mount
+    useEffect(() => {
         dispatch(getRecipes())
     }, [dispatch]);
 

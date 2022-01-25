@@ -2,15 +2,15 @@ import axios from 'axios';
 import { GET_RECIPES, GET_RECIPE_DETAILS, DIET_TYPE_FILTER, ALPHABETICAL_SORT, SCORE_SORT, SEARCH_RECIPE, GET_DIET_TYPES, LOCAL_HOST } from './types';
 
 export function getRecipes() {
-    return async function(dispatch) {
-        try {            
-            var response = await axios.get(`${LOCAL_HOST}/api/recipes`);
-            return dispatch({type: GET_RECIPES, payload: response.data})
-        } catch(error) {
-            console.log(error)
-        }
+    return function(dispatch) {
+        axios.get(`${LOCAL_HOST}/api/recipes`)   
+    .then((response) => {
+        return dispatch({type: GET_RECIPES, payload: response.data})
+    }).catch((error) => {
+        console.log(error)
     }
-};
+    )
+}};
 
 export function getRecipesByName(payload) {
     return async function(dispatch) {

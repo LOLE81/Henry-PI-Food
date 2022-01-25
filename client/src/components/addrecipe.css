@@ -17,6 +17,18 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.prettierForm {
+    margin-left: auto;
+    margin-right: auto;
+    align-content: space-around;
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    box-shadow: 3px 3px 5px 1px rgb(112, 44, 44);
+    background-color: rgb(231, 218, 218, 0.3);
+}
+
 .goBackButton {
     color: rgb(231, 218, 218);
     background-color: #ce5249;
@@ -69,7 +81,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-right: 3px;
+    align-items: flex-start;
+    padding-bottom: 3px;
     color: #ce5249;
     font-style: italic;
     font-weight: 700;    
@@ -78,9 +91,15 @@
 
 .nameInput {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     padding: 7px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    
 }
 
 .checkSelect {
@@ -107,7 +126,7 @@
 }
 
 .errors {
-    font-family: sans-serif;
-    color: rgb(222, 135, 139);
+    font-family: sans-serif;    
+    color: #ce5249;
     font-size: 14px;
 }

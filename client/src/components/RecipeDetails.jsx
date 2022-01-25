@@ -78,9 +78,7 @@ export default function RecipeDetails(props) {
                 }</ul>
             </div>
             
-            <Link to="/home">
-                <button className="backButton">Go back to recipes</button>
-            </Link>
+            <Link to="/home"><button className="backButton">Go back to recipes</button></Link>
             
         </div>
 

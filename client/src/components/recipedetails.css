@@ -91,11 +91,17 @@
 
 .summary {
     text-align: justify;
+    padding-left: 10px;
     background-color: rgb(231, 218, 218, 0.3);
+    color: rgb(6, 6, 75);
+    font-weight: 500;
 }
 
 .steps {
+    padding-left: 10px;
     text-align: justify;
     list-style: none;
     background-color: rgb(231, 218, 218, 0.3);
+    color: rgb(6, 6, 75);
+    font-weight: 500;
 }
